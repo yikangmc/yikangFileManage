@@ -5,7 +5,7 @@
 	<artifactId>yikangFileManage</artifactId>
 	<packaging>war</packaging>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>yikangYouthFuntain</name>
+	<name>yikangFileManage</name>
 	<url>http://maven.apache.org</url>
 	<description>客户端接口服务</description>
 
@@ -252,7 +252,7 @@
 
 
 	<build>
-		<finalName>youthFountain</finalName>
+		<finalName>yikangFileManage</finalName>
 
 		<outputDirectory>src/main/webapp/WEB-INF/classes</outputDirectory>
 		<plugins>
