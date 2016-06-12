@@ -40,12 +40,18 @@
 			<version>2.0.1</version>
 		</dependency>
 
-
 		<dependency>
 			<groupId>org.apache.httpcomponents</groupId>
 			<artifactId>httpclient</artifactId>
 			<version>4.5</version>
 		</dependency>
+		
+		<dependency>
+			<groupId>org.apache.httpcomponents</groupId>
+			<artifactId>httpmime</artifactId>
+			<version>4.5</version>
+		</dependency>
+		
 
 		<dependency>
 			<groupId>org.springframework</groupId>
@@ -236,6 +242,7 @@
 			<artifactId>aws-java-sdk-s3</artifactId>
 			<version>1.10.39</version>
 		</dependency>
+	
 
 		<!-- 容联云通信 短信发送 start -->
 		<!-- <dependency> -->
@@ -256,7 +263,7 @@
 
 		<outputDirectory>src/main/webapp/WEB-INF/classes</outputDirectory>
 		<plugins>
-
+            
 
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
@@ -300,6 +307,10 @@
 			<name>EBR Spring Release Repository</name>
 			<url>http://repository.springsource.com/maven/bundles/release</url>
 		</repository>
+	
+		
+		
+		
 		<repository>
 			<id>com.springsource.repository.bundles.external</id>
 			<name>EBR External Release Repository</name>
