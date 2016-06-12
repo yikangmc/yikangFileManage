@@ -11,6 +11,8 @@ import java.util.Map;
 import javax.imageio.ImageIO;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.swing.ImageIcon;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -67,20 +69,15 @@ public class FileUploadController {
 									ExceptionConstants.fileException.imageFileTypeException.errorMessage);
 							return rtnData;
 						}
-
 						try {
 							S3ConectFactory.putImgeFile(con, headImageBucketName, fileName, f.getInputStream(),
 									f.getContentType());
 							ImgCompressUtil imgCompressUtil = new ImgCompressUtil(f.getInputStream());
 							Image tempImage = imgCompressUtil.resizeFix(220, 220);
-							File tempFile = new File("F:/ii/0.jpg");
-							if(!tempFile.exists()){
-								tempFile.createNewFile();
-							}else{
+							File tempFile = new File("E:/ii/temp.jpg");
 								ImageIO.write((BufferedImage) tempImage, newFileName, tempFile);
 								S3ConectFactory.putImgeFile(con, headImageBucketName, newFileName,
-										new FileInputStream(tempFile.toString()), f.getContentType());
-							}
+										new FileInputStream(tempFile), f.getContentType());
 						} catch (IOException e) {
 							e.printStackTrace();
 						}
@@ -128,13 +125,11 @@ public class FileUploadController {
 	}
 
 	public static void main(String[] args) throws IOException {
-		// String newFileName ="";
-		/*
-		 * ImageIcon ii = new ImageIcon("E:\\123.jpg"); ImgCompressUtil imgCom =
-		 * new ImgCompressUtil(ii.getImage()); Image tempImage =
-		 * imgCom.resizeFix(600, 399); File tempFile = new
-		 * File("E:\\biophoto\\.jpg");
-		 * ImageIO.write((BufferedImage)tempImage,"jpg",tempFile);
+		 /* ImageIcon ii = new ImageIcon("D:\\test.jpg"); ImgCompressUtil imgCom =
+		  new ImgCompressUtil(ii.getImage()); Image tempImage =
+		  imgCom.resizeFix(600, 399); File tempFile = new
+		  File("D:\\test2.jpg");
+		  ImageIO.write((BufferedImage)tempImage,"jpg",tempFile);
 		 */
 	}
 
