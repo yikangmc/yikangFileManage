@@ -1,14 +1,12 @@
 package com.yikangyiliao.base.utils;
 
 import java.io.*;
-import java.util.Date;
 import java.awt.*;
 import java.awt.image.*;
 import javax.imageio.ImageIO;
-import javax.swing.ImageIcon;
 
 public class ImgCompressUtil {
-	
+
 	private Image img;
 	private int width;
 	private int height;
@@ -25,7 +23,7 @@ public class ImgCompressUtil {
 		width = img.getWidth(null); // 得到原图宽
 		height = img.getHeight(null); // 得到源图长
 	}
-	
+
 	/**
 	 * 构造函数
 	 * 
@@ -42,6 +40,20 @@ public class ImgCompressUtil {
 		img = ImageIO.read(file); // 构造Image对象
 		width = img.getWidth(null); // 得到原图宽
 		height = img.getHeight(null); // 得到源图长
+		
+	}
+	
+	
+	public  Image changeNumber(InputStream inputStream,int number) throws IOException{
+		if(number>=2){
+			BufferedImage photo = ImageIO.read(inputStream);
+		    int width2 = (photo.getWidth())/number;
+		    int height2 = (photo.getHeight())/number;
+		    return resize(width2, height2);	
+		}else{
+			resize(width, height);
+		}
+	       return resize(width, height);
 	}
 	/**
 	 * 构造函数
@@ -52,9 +64,13 @@ public class ImgCompressUtil {
 	public ImgCompressUtil(Image img) throws IOException {
 		this.img = img;
 		width = img.getWidth(null); // 得到源图宽
-		height = img.getHeight(null); // 得到源图长
+		height =img.getHeight(null); //到源图长
+		
 	}
 
+
+	
+	
 	/**
 	 * 按照宽度还是高度进行压缩
 	 * 
@@ -107,31 +123,24 @@ public class ImgCompressUtil {
 	public Image resize(int w, int h) throws IOException {
 		// SCALE_SMOOTH 的缩略算法 生成缩略图片的平滑度的 优先级比速度高 生成的图片质量比较好 但速度慢
 		BufferedImage image = new BufferedImage(w, h, BufferedImage.TYPE_INT_RGB);
-		image.getGraphics().drawImage(img, 0, 0, w, h, null); // 绘制缩小后的图
-		// File destFile = new File("D:\\456.jpg");
-		// FileOutputStream out = new FileOutputStream(destFile); // 输出到文件流
-		// // 可以正常实现bmp、png、gif转jpg
-		// JPEGImageEncoder encoder = JPEGCodec.createJPEGEncoder(out);
-		// encoder.encode(image); // JPEG编码
-		// out.close();
+		image.getGraphics().drawImage(img, 0, 0, w, h, null); //绘制缩小后的图
 		return image;
 	}
 	
-	
-	
-	@SuppressWarnings("deprecation")
+	/*@SuppressWarnings("deprecation")
 	public static void main(String[] args) throws Exception {
 		System.out.println("开始：" + new Date().toLocaleString());
-//		ImgCompress imgCom = new ImgCompress("C:\\Users\\ZFang\\Desktop\\sa.jpg");
-//		imgCom.resizeFix(640, 480);
-//		System.out.println("结束：" + new Date().toLocaleString());
-		
-		
+		// ImgCompress imgCom = new
+		// ImgCompress("C:\\Users\\ZFang\\Desktop\\sa.jpg");
+		// imgCom.resizeFix(640, 480);
+		// System.out.println("结束：" + new Date().toLocaleString());
+
 		ImageIcon ii = new ImageIcon("E:\\123.jpg");
 		ImgCompressUtil imgCom = new ImgCompressUtil(ii.getImage());
 		Image resizeFix = imgCom.resizeFix(220, 200);
-		ImageIO.write((BufferedImage)resizeFix, "jpg", new File("E:\\ii\\0.jpg"));
+		ImageIO.write((BufferedImage) resizeFix, "jpg", new File("E:\\ii\\0.jpg"));
 		System.out.println("结束：" + new Date().toLocaleString());
 	}
+*/
 
 }

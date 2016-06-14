@@ -1,27 +1,39 @@
 package com.yikangyiliao.fileManage.controller;
 
 import java.awt.Image;
+
 import java.awt.image.BufferedImage;
+import java.io.BufferedInputStream;
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Properties;
+import java.util.Set;
 
 import javax.imageio.ImageIO;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.swing.ImageIcon;
 
+import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
+import org.xml.sax.InputSource;
+
 import com.amazonaws.services.s3.AmazonS3;
 import com.yikangyiliao.base.awss3.conect.S3ConectFactory;
 import com.yikangyiliao.base.utils.FileUtil;
 import com.yikangyiliao.base.utils.ImgCompressUtil;
+import com.yikangyiliao.base.utils.SystemProperties;
 import com.yikangyiliao.fileManage.common.error.ExceptionConstants;
 
 /**
@@ -33,22 +45,24 @@ import com.yikangyiliao.fileManage.common.error.ExceptionConstants;
 @Controller
 public class FileUploadController {
 
+//	private Logger logger = (Logger) LogFactory.getLog(this.getClass());
+
 	private final String headImageBucketName = "biophoto";
 
 	@RequestMapping
 	@ResponseBody
 	public Map<String, Object> imageFileUpload(@RequestParam(value = "fileGroup") String fileGroup,
 			@RequestParam(value = "files") MultipartFile[] files, HttpServletRequest request) {
+		
 		Map<String, Object> rtnData = new HashMap<String, Object>();
 
+		
 		if (null != fileGroup && null != files) {
 
 			if (fileGroup.equals("headImage")) {
 				String fileName = "";
 
 				String fileUrl = "";
-
-				String newFileUrl = "";
 
 				String oldFileName = "";
 
@@ -70,27 +84,29 @@ public class FileUploadController {
 							return rtnData;
 						}
 						try {
-							S3ConectFactory.putImgeFile(con, headImageBucketName, fileName, f.getInputStream(),
-									f.getContentType());
+							
+							S3ConectFactory.putImgeFile(con, headImageBucketName, fileName, f.getInputStream(),f.getContentType());
 							ImgCompressUtil imgCompressUtil = new ImgCompressUtil(f.getInputStream());
-							Image tempImage = imgCompressUtil.resizeFix(220, 220);
-							File tempFile = new File("E:/ii/temp.jpg");
-								ImageIO.write((BufferedImage) tempImage, newFileName, tempFile);
-								S3ConectFactory.putImgeFile(con, headImageBucketName, newFileName,
-										new FileInputStream(tempFile), f.getContentType());
+							Image tempImage = imgCompressUtil.changeNumber(f.getInputStream(),SystemProperties.multiple);
+							try {
+								String path = SystemProperties.FilePath;
+							    ImageIO.write((BufferedImage)tempImage,"jpg", new File(path));
+								S3ConectFactory.putImgeFile(con, headImageBucketName, newFileName,new FileInputStream(path), f.getContentType());
+							} catch (IOException e) {
+								e.printStackTrace();
+								//logger.debug(e.getMessage());
+							}
 						} catch (IOException e) {
 							e.printStackTrace();
+							//logger.debug(e.getMessage());
 						}
 						fileUrl = S3ConectFactory.getResourceURL(con, headImageBucketName, fileName).toString();
-						newFileUrl = S3ConectFactory.getResourceURL(con, headImageBucketName, newFileName).toString();
 					}
 
 					Map<String, String> fileMap = new HashMap<String, String>();
 					fileMap.put("fileName", fileName);
 					fileMap.put("fileUrl", fileUrl);
 					fileMap.put("oldFileName", oldFileName);
-					fileMap.put("newFileUrl", newFileUrl);
-					fileMap.put("newFileName", newFileName);
 
 					rtnData.put("data", fileMap);
 					rtnData.put("status", ExceptionConstants.responseSuccess.responseSuccess.code);
@@ -125,12 +141,5 @@ public class FileUploadController {
 	}
 
 	public static void main(String[] args) throws IOException {
-		 /* ImageIcon ii = new ImageIcon("D:\\test.jpg"); ImgCompressUtil imgCom =
-		  new ImgCompressUtil(ii.getImage()); Image tempImage =
-		  imgCom.resizeFix(600, 399); File tempFile = new
-		  File("D:\\test2.jpg");
-		  ImageIO.write((BufferedImage)tempImage,"jpg",tempFile);
-		 */
 	}
-
 }
