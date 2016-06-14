@@ -1,7 +1,6 @@
 package com.yikangyiliao.base.awss3.conect;
 
 import java.io.File;
-
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -97,12 +96,12 @@ public class S3ConectFactory {
 		//设置所有人，有读权限。
 //		acl.grantPermission(GroupGrantee.AllUsers, Permission.ReadAcp);
 		//想设置打开下载地址
-		acl.grantPermission(GroupGrantee.AllUsers, Permission.Read);
+		 acl.grantPermission(GroupGrantee.AllUsers, Permission.Read);
 		
 		
 		PutObjectRequest putObject=new PutObjectRequest(bucketName, fileName, inputStream,objectMetaData);
 		putObject.withAccessControlList(acl);
-		PutObjectResult putObjectResult=con.putObject(putObject);
+			PutObjectResult putObjectResult=con.putObject(putObject);
 		return true;
 	}
 	

@@ -1,6 +1,7 @@
 package com.yikangyiliao.fileManage;
 
 import java.io.File;
+
 import java.io.IOException;
 import java.nio.charset.Charset;
 import java.text.SimpleDateFormat;
@@ -32,7 +33,7 @@ import com.yikangyiliao.base.encryption.AES;
 
 public class SendRequest {
 
-	private static String REQUEST_URL = "http://192.168.1.7:8081/yikangservice/service/";
+	private static String REQUEST_URL = "http://127.0.0.1:8081/yikangservice/service/";
 
 	private static ObjectMapper objectMapper = new ObjectMapper();
 	@SuppressWarnings("unchecked")
@@ -95,12 +96,12 @@ public class SendRequest {
 
 		CloseableHttpClient httpclient = HttpClients.createDefault();
 
-		HttpPost httpPost = new HttpPost("http://192.168.1.7:8081/yikangFileManage/fileUpload/imageFileUpload");
+		HttpPost httpPost = new HttpPost("http://127.0.0.1:8081/yikangFileManage/fileUpload/imageFileUpload");
 
-		File file = new File("E:/123.jpg");
+		File file = new File("E:/345.jpg");
 		MultipartEntityBuilder builder = MultipartEntityBuilder.create();
 		builder.setMode(HttpMultipartMode.BROWSER_COMPATIBLE);
-		builder.addBinaryBody("files", file, ContentType.DEFAULT_BINARY, file.getName());
+		builder.addBinaryBody("files",file,ContentType.DEFAULT_BINARY,file.getName());
 		builder.addTextBody("fileGroup", "headImage");
 		Charset charset=Charset.forName("utf-8");
 		builder.setCharset(charset);

@@ -16,7 +16,6 @@ import org.apache.log4j.Logger;
 import org.codehaus.jackson.JsonGenerationException;
 import org.codehaus.jackson.map.JsonMappingException;
 import org.codehaus.jackson.map.ObjectMapper;
-import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -93,36 +92,35 @@ public class ServiceController
 
           return rtnMap;
         }
-        catch (IllegalAccessException e) {
-          e.printStackTrace();
+        catch (IllegalAccessException e) {       
+        	this.logger.debug(e.getMessage());
         }
-        catch (IllegalArgumentException e) {
-          e.printStackTrace();
+        catch (IllegalArgumentException e) {         
+        	this.logger.debug(e.getMessage());
         }
         catch (InvocationTargetException e) {
-          e.printStackTrace();
+        	this.logger.debug(e.getMessage());         
         }
-        catch (NoSuchMethodException e) {
-          e.printStackTrace();
+        catch (NoSuchMethodException e) {         
+        	this.logger.debug(e.getMessage());
         }
-        catch (SecurityException e) {
-          e.printStackTrace();
+        catch (SecurityException e) {          
+        	this.logger.debug(e.getMessage());
         }
-        catch (JsonGenerationException e) {
-          e.printStackTrace();
+        catch (JsonGenerationException e) {         
+        	this.logger.debug(e.getMessage());
         }
-        catch (JsonMappingException e) {
-          e.printStackTrace();
+        catch (JsonMappingException e) {         
+        	this.logger.debug(e.getMessage());
         }
-        catch (IOException e) {
-          e.printStackTrace();
+        catch (IOException e) {          
+        	this.logger.debug(e.getMessage());
         }
         catch (Exception e) {
-          e.printStackTrace();
+        	this.logger.debug(e.getMessage());
         }
 
       }
-
       rtnMap.put("status", "999999");
       rtnMap.put("message", "没有对应服务！");
       return rtnMap;

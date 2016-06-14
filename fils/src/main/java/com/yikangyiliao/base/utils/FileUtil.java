@@ -2,18 +2,12 @@ package com.yikangyiliao.base.utils;
 
 import java.io.File;
 
+
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.util.UUID;
-
-import org.springframework.web.multipart.MultipartFile;
-
-import com.amazonaws.auth.policy.conditions.S3ConditionFactory;
 import com.amazonaws.services.s3.AmazonS3;
 import com.yikangyiliao.base.awss3.conect.S3ConectFactory;
-import com.yikangyiliao.fileManage.common.error.ExceptionConstants;
-
-import sun.security.util.Length;
 
 public class FileUtil
 {
