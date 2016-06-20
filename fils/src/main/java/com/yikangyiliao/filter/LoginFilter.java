@@ -76,7 +76,6 @@ public class LoginFilter implements Filter {
 			arg1.getWriter().println("{'status':'999999','message':'数据校验失败!'}");
 		}
 	}
-
 	public void init(FilterConfig arg0) throws ServletException {
 	}
 }

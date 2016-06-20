@@ -11,24 +11,27 @@ import com.yikangyiliao.base.awss3.conect.S3ConectFactory;
 
 public class FileUtil
 {
+
   public static String getFileSuffix(String fileName)
   {
     return fileName.substring(fileName.lastIndexOf("."), fileName.length());
   }
 
-  public static String getUniqueFileName(String fileName)
+  public static  String getUniqueFileName(String fileName)
   {
     String suffix = fileName.substring(fileName.lastIndexOf("."),fileName.length());
     UUID uuid = UUID.randomUUID(); 
-    return uuid + suffix;
+    return  uuid + suffix;
+     
   }
 
   public static String getUniqueNewFileName(String fileName){
-	  String newSuffix = fileName.substring(fileName.length()-4, fileName.length());
-	  String newString = "!icun";
-	  String newFilName = newString +newSuffix;
-	  UUID uuid = UUID.randomUUID();
-	  return uuid+newFilName; 
+	  int length = fileName.indexOf(".");  
+	  String result = fileName.substring(0,length);
+	  String newSuffix = fileName.substring(fileName.lastIndexOf("."),fileName.length());
+	  String newString = "!icon";
+	  String newFilName = result+newString +newSuffix;
+	  return newFilName;
   }
   
   

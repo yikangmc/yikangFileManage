@@ -1,33 +1,21 @@
 package com.yikangyiliao.fileManage.controller;
 
 import java.awt.Image;
-
 import java.awt.image.BufferedImage;
-import java.io.BufferedInputStream;
-import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Properties;
-import java.util.Set;
-
 import javax.imageio.ImageIO;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import org.apache.commons.logging.LogFactory;
 import org.apache.log4j.Logger;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
-import org.xml.sax.InputSource;
 
 import com.amazonaws.services.s3.AmazonS3;
 import com.yikangyiliao.base.awss3.conect.S3ConectFactory;
@@ -45,8 +33,7 @@ import com.yikangyiliao.fileManage.common.error.ExceptionConstants;
 @Controller
 public class FileUploadController {
 
-//	private Logger logger = (Logger) LogFactory.getLog(this.getClass());
-
+	private Logger logger =Logger.getLogger(FileUploadController.class);
 	private final String headImageBucketName = "biophoto";
 
 	@RequestMapping
@@ -56,7 +43,7 @@ public class FileUploadController {
 		
 		Map<String, Object> rtnData = new HashMap<String, Object>();
 
-		
+		logger.info("FileUploadController 上传文件 ，文件数量为:"+files.length);
 		if (null != fileGroup && null != files) {
 
 			if (fileGroup.equals("headImage")) {
@@ -67,6 +54,8 @@ public class FileUploadController {
 				String oldFileName = "";
 
 				String newFileName = "";
+				
+				String NewfileUrl="";
 
 				if (files.length > 0) {
 					for (MultipartFile f : files) {
@@ -84,7 +73,6 @@ public class FileUploadController {
 							return rtnData;
 						}
 						try {
-							
 							S3ConectFactory.putImgeFile(con, headImageBucketName, fileName, f.getInputStream(),f.getContentType());
 							ImgCompressUtil imgCompressUtil = new ImgCompressUtil(f.getInputStream());
 							Image tempImage = imgCompressUtil.changeNumber(f.getInputStream(),SystemProperties.multiple);
@@ -101,13 +89,16 @@ public class FileUploadController {
 							//logger.debug(e.getMessage());
 						}
 						fileUrl = S3ConectFactory.getResourceURL(con, headImageBucketName, fileName).toString();
+						NewfileUrl = S3ConectFactory.getResourceURL(con, headImageBucketName, newFileName).toString();
 					}
 
 					Map<String, String> fileMap = new HashMap<String, String>();
 					fileMap.put("fileName", fileName);
 					fileMap.put("fileUrl", fileUrl);
 					fileMap.put("oldFileName", oldFileName);
-
+                    fileMap.put("newFileName", newFileName);
+                    fileMap.put("NewfileUrl", NewfileUrl);
+                    
 					rtnData.put("data", fileMap);
 					rtnData.put("status", ExceptionConstants.responseSuccess.responseSuccess.code);
 					rtnData.put("message", ExceptionConstants.responseSuccess.responseSuccess.message);

@@ -1,7 +1,6 @@
 package com.yikangyiliao.fileManage;
 
 import java.io.File;
-
 import java.io.IOException;
 import java.nio.charset.Charset;
 import java.text.SimpleDateFormat;
@@ -33,8 +32,8 @@ import com.yikangyiliao.base.encryption.AES;
 
 public class SendRequest {
 
-	private static String REQUEST_URL = "http://127.0.0.1:8081/yikangservice/service/";
-
+	//private static String REQUEST_URL = "http://127.0.0.1:8081/yikangservice/service/";
+	private static String REQUEST_URL = "http://54.222.247.20:8080/FileManage/service/";
 	private static ObjectMapper objectMapper = new ObjectMapper();
 	@SuppressWarnings("unchecked")
 	public static void sendGet(String serviceCode, Map<String, Object> paramData) throws IOException {
@@ -96,9 +95,9 @@ public class SendRequest {
 
 		CloseableHttpClient httpclient = HttpClients.createDefault();
 
-		HttpPost httpPost = new HttpPost("http://127.0.0.1:8081/yikangFileManage/fileUpload/imageFileUpload");
-
-		File file = new File("E:/345.jpg");
+		//HttpPost httpPost = new HttpPost("http://127.0.0.1:8081/yikangFileManage/fileUpload/imageFileUpload");
+		HttpPost httpPost = new HttpPost("http://localhost:8089/fileUploadConvert/fileUpload");
+		File file = new File("E:/4.jpg");
 		MultipartEntityBuilder builder = MultipartEntityBuilder.create();
 		builder.setMode(HttpMultipartMode.BROWSER_COMPATIBLE);
 		builder.addBinaryBody("files",file,ContentType.DEFAULT_BINARY,file.getName());
@@ -110,7 +109,7 @@ public class SendRequest {
 		httpPost.setEntity(entity);
 		System.out.println("Executing request " + httpPost.getRequestLine());
 
-		// Create a custom response handler
+	        
 		ResponseHandler<String> responseHandler = new ResponseHandler<String>() {
 			public String handleResponse(final HttpResponse response) throws ClientProtocolException, IOException {
 				int status = response.getStatusLine().getStatusCode();
