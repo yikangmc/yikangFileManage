@@ -1,0 +1,236 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yikangyiliao.fileManage.dao.LogsDao">
+	<resultMap id="BaseResultMap" type="com.yikangyiliao.fileManage.entity.Logs">
+		<id column="logs_id" property="logsId" jdbcType="BIGINT" />
+		<result column="user_id" property="userId" jdbcType="BIGINT" />
+		<result column="equipment" property="equipment" jdbcType="VARCHAR" />
+		<result column="operation_type" property="operationType"
+			jdbcType="INTEGER" />
+		<result column="open_time" property="openTime" jdbcType="TIMESTAMP" />
+		<result column="close_time" property="closeTime" jdbcType="TIMESTAMP" />
+		<result column="taglib_id" property="taglibId" jdbcType="BIGINT" />
+		<result column="home_page_banner" property="homePageBanner"
+			jdbcType="INTEGER" />
+		<result column="community_page_banner" property="communityPageBanner"
+			jdbcType="INTEGER" />
+		<result column="page_identify" property="pageIdentify"
+			jdbcType="INTEGER" />
+		<result column="type_identify" property="typeIdentify"
+			jdbcType="VARCHAR" />
+		<result column="type_id" property="typeId" jdbcType="BIGINT" />
+		<result column="start_time" property="startTime" jdbcType="TIMESTAMP" />
+		<result column="end_time" property="endTime" jdbcType="TIMESTAMP" />
+		<result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		logs_id, user_id, equipment, operation_type, open_time, close_time, taglib_id,
+		home_page_banner,
+		community_page_banner, page_identify, type_identify, type_id, start_time, end_time,
+		create_time
+	</sql>
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.lang.Long">
+		select
+		<include refid="Base_Column_List" />
+		from logs
+		where logs_id = #{logsId,jdbcType=BIGINT}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+		delete from logs
+		where logs_id = #{logsId,jdbcType=BIGINT}
+	</delete>
+	<insert id="insert" parameterType="com.yikangyiliao.fileManage.entity.Logs">
+		insert into logs (logs_id, user_id, equipment,
+		operation_type, open_time, close_time,
+		taglib_id, home_page_banner, community_page_banner,
+		page_identify, type_identify, type_id,
+		start_time, end_time, create_time
+		)
+		values (#{logsId,jdbcType=BIGINT}, #{userId,jdbcType=BIGINT},
+		#{equipment,jdbcType=VARCHAR},
+		#{operationType,jdbcType=INTEGER}, #{openTime,jdbcType=TIMESTAMP}, #{closeTime,jdbcType=TIMESTAMP},
+		#{taglibId,jdbcType=BIGINT}, #{homePageBanner,jdbcType=INTEGER},
+		#{communityPageBanner,jdbcType=INTEGER},
+		#{pageIdentify,jdbcType=INTEGER}, #{typeIdentify,jdbcType=VARCHAR},
+		#{typeId,jdbcType=BIGINT},
+		#{startTime,jdbcType=TIMESTAMP}, #{endTime,jdbcType=TIMESTAMP}, #{createTime,jdbcType=TIMESTAMP}
+		)
+	</insert>
+	<insert id="insertSelective" parameterType="com.yikangyiliao.fileManage.entity.Logs">
+		insert into logs
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="logsId != null">
+				logs_id,
+			</if>
+			<if test="userId != null">
+				user_id,
+			</if>
+			<if test="equipment != null">
+				equipment,
+			</if>
+			<if test="operationType != null">
+				operation_type,
+			</if>
+			<if test="openTime != null">
+				open_time,
+			</if>
+			<if test="closeTime != null">
+				close_time,
+			</if>
+			<if test="taglibId != null">
+				taglib_id,
+			</if>
+			<if test="homePageBanner != null">
+				home_page_banner,
+			</if>
+			<if test="communityPageBanner != null">
+				community_page_banner,
+			</if>
+			<if test="pageIdentify != null">
+				page_identify,
+			</if>
+			<if test="typeIdentify != null">
+				type_identify,
+			</if>
+			<if test="typeId != null">
+				type_id,
+			</if>
+			<if test="startTime != null">
+				start_time,
+			</if>
+			<if test="endTime != null">
+				end_time,
+			</if>
+			<if test="createTime != null">
+				create_time,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="logsId != null">
+				#{logsId,jdbcType=BIGINT},
+			</if>
+			<if test="userId != null">
+				#{userId,jdbcType=BIGINT},
+			</if>
+			<if test="equipment != null">
+				#{equipment,jdbcType=VARCHAR},
+			</if>
+			<if test="operationType != null">
+				#{operationType,jdbcType=INTEGER},
+			</if>
+			<if test="openTime != null">
+				#{openTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="closeTime != null">
+				#{closeTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="taglibId != null">
+				#{taglibId,jdbcType=BIGINT},
+			</if>
+			<if test="homePageBanner != null">
+				#{homePageBanner,jdbcType=INTEGER},
+			</if>
+			<if test="communityPageBanner != null">
+				#{communityPageBanner,jdbcType=INTEGER},
+			</if>
+			<if test="pageIdentify != null">
+				#{pageIdentify,jdbcType=INTEGER},
+			</if>
+			<if test="typeIdentify != null">
+				#{typeIdentify,jdbcType=VARCHAR},
+			</if>
+			<if test="typeId != null">
+				#{typeId,jdbcType=BIGINT},
+			</if>
+			<if test="startTime != null">
+				#{startTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="endTime != null">
+				#{endTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="createTime != null">
+				#{createTime,jdbcType=TIMESTAMP},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="com.yikangyiliao.fileManage.entity.Logs">
+		update logs
+		<set>
+			<if test="userId != null">
+				user_id = #{userId,jdbcType=BIGINT},
+			</if>
+			<if test="equipment != null">
+				equipment = #{equipment,jdbcType=VARCHAR},
+			</if>
+			<if test="operationType != null">
+				operation_type = #{operationType,jdbcType=INTEGER},
+			</if>
+			<if test="openTime != null">
+				open_time = #{openTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="closeTime != null">
+				close_time = #{closeTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="taglibId != null">
+				taglib_id = #{taglibId,jdbcType=BIGINT},
+			</if>
+			<if test="homePageBanner != null">
+				home_page_banner = #{homePageBanner,jdbcType=INTEGER},
+			</if>
+			<if test="communityPageBanner != null">
+				community_page_banner = #{communityPageBanner,jdbcType=INTEGER},
+			</if>
+			<if test="pageIdentify != null">
+				page_identify = #{pageIdentify,jdbcType=INTEGER},
+			</if>
+			<if test="typeIdentify != null">
+				type_identify = #{typeIdentify,jdbcType=VARCHAR},
+			</if>
+			<if test="typeId != null">
+				type_id = #{typeId,jdbcType=BIGINT},
+			</if>
+			<if test="startTime != null">
+				start_time = #{startTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="endTime != null">
+				end_time = #{endTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="createTime != null">
+				create_time = #{createTime,jdbcType=TIMESTAMP},
+			</if>
+		</set>
+		where logs_id = #{logsId,jdbcType=BIGINT}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.yikangyiliao.fileManage.entity.Logs">
+		update logs
+		set user_id = #{userId,jdbcType=BIGINT},
+		equipment = #{equipment,jdbcType=VARCHAR},
+		operation_type = #{operationType,jdbcType=INTEGER},
+		open_time = #{openTime,jdbcType=TIMESTAMP},
+		close_time = #{closeTime,jdbcType=TIMESTAMP},
+		taglib_id = #{taglibId,jdbcType=BIGINT},
+		home_page_banner = #{homePageBanner,jdbcType=INTEGER},
+		community_page_banner = #{communityPageBanner,jdbcType=INTEGER},
+		page_identify = #{pageIdentify,jdbcType=INTEGER},
+		type_identify = #{typeIdentify,jdbcType=VARCHAR},
+		type_id = #{typeId,jdbcType=BIGINT},
+		start_time = #{startTime,jdbcType=TIMESTAMP},
+		end_time = #{endTime,jdbcType=TIMESTAMP},
+		create_time = #{createTime,jdbcType=TIMESTAMP}
+		where logs_id = #{logsId,jdbcType=BIGINT}
+	</update>
+	<insert id="logsInsertBatch" parameterType="list">
+		insert into logs (user_id, equipment,operation_type,open_time,close_time
+		,taglib_id,home_page_banner,community_page_banner,page_identify,type_identify
+		,type_id,start_time,end_time,create_time)
+		values
+		<foreach collection="list" item="item" index="index"
+			separator=",">
+			(#{item.userId},#{item.equipment},#{item.operationType},#{item.openTime},#{item.closeTime}
+			,#{item.taglibId},#{item.homePageBanner},#{item.communityPageBanner},#{item.pageIdentify}
+			,#{item.typeIdentify},#{item.typeId},#{item.startTime},#{item.endTime},#{item.createTime})
+		</foreach>
+
+	</insert>
+</mapper>
