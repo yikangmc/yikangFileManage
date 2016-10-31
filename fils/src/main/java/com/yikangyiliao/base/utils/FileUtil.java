@@ -82,7 +82,6 @@ public class FileUtil {
 						BufferedReader bufferedReader = new BufferedReader(read);
 						String lineTxt = null;
 						while ((lineTxt = bufferedReader.readLine()) != null) {
-							Logs logs = new Logs();
 							String ary[] = lineTxt.split("-->");
 							//时间-->ios/android/服务器/-->userId-->json
 							/*
@@ -102,6 +101,7 @@ public class FileUtil {
 							 * }
 							 */
 							if(ary.length==4){
+								Logs logs = new Logs();
 								logs.setUserId(Long.valueOf(ary[2].toString()));
 								String jsonString = ary[3];
 								try {
@@ -133,7 +133,7 @@ public class FileUtil {
 									String endTime = urlJsonString.getString("endTime");
 									endTime=endTime.equals("")?"1998-01-01 00:00:00":endTime;
 									logs.setEquipment(equipment);
-									logs.setOperationType(Integer.valueOf(1));
+									logs.setOperationType(Integer.valueOf(operationType));
 									SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 									Date openDate = sdf.parse(openTime);
 									logs.setOpenTime(openDate);

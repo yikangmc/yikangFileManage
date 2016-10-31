@@ -21,12 +21,17 @@ public class LogsThread implements Runnable{
 	
 	public void run(){
 		while(true){
-			List<Logs> logsList = FileUtil.parsingLog();
-			if(logsList.size()>0){
-				int resultNum = logsManage.insertLogs(logsList);
-				if(resultNum>0){
-					FileUtil.deleteFile();
+			try{
+				List<Logs> logsList = FileUtil.parsingLog();
+				if(logsList.size()>0){
+					int resultNum = logsManage.insertLogs(logsList);
+					if(resultNum>0){
+						FileUtil.deleteFile();
+					}
 				}
+			}catch(Exception exception){
+				exception.printStackTrace();
+				logger.error("LogsSchedule --> readLogs --> message:"+exception.getMessage());
 			}
 		}
 	}

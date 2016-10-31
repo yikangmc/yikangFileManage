@@ -32,7 +32,7 @@ public class LogsSchedule {
 	 * 
 	 * **/
 	public void readLogs() {
-		logger.info("LogsSchedule --> readLogs");
+		/*logger.info("LogsSchedule --> readLogs");
 		try {
 			List<Logs> logsList = FileUtil.parsingLog();
 			if(logsList.size()>0){
@@ -44,7 +44,7 @@ public class LogsSchedule {
 		} catch (Exception e) {
 			e.printStackTrace();
 			logger.error("LogsSchedule --> readLogs --> message:"+e.getMessage());
-		}
+		}*/
 	}
 
 }
