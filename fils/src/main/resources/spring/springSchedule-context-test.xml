@@ -39,7 +39,6 @@
      <bean id="startQuertz" autowire="byName" lazy-init="true"  class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
         <property name="triggers">
            <list>
-                <ref bean="logsTrriger" />
            </list>
         </property>
      </bean>
