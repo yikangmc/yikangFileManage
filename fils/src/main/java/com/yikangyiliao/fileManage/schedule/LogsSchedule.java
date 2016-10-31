@@ -36,9 +36,13 @@ public class LogsSchedule {
 		try {
 			List<Logs> logsList = FileUtil.parsingLog();
 			if(logsList.size()>0){
-				logsManage.insertLogs(logsList);
+				int resultNum = logsManage.insertLogs(logsList);
+				if(resultNum>0){
+					FileUtil.deleteFile();
+				}
 			}
 		} catch (Exception e) {
+			e.printStackTrace();
 			logger.error("LogsSchedule --> readLogs --> message:"+e.getMessage());
 		}
 	}

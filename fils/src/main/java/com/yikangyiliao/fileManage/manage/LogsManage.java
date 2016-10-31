@@ -40,15 +40,15 @@ public class LogsManage {
              int batchCount = 1000;// 每批commit的个数
              int batchLastIndex = batchCount;// 每批最后一个的下标
              for (int index = 0; index < logsList.size();) {
-                 if (batchLastIndex >= logsList.size()) {
+                 if (batchLastIndex > logsList.size()) {
                      batchLastIndex = logsList.size();
                      result = result * session.insert("com.yikangyiliao.fileManage.dao.LogsDao.logsInsertBatch",logsList.subList(index, batchLastIndex));
-                     session.commit();
+                    // session.commit();
                      System.out.println("index:" + index+ " batchLastIndex:" + batchLastIndex);
                      break;// 数据插入完毕，退出循环
                  } else {
                      result = result * session.insert("com.yikangyiliao.fileManage.dao.LogsDao.logsInsertBatch",logsList.subList(index, batchLastIndex));
-                     session.commit();
+                    // session.commit();
                      System.out.println("index:" + index+ " batchLastIndex:" + batchLastIndex);
                      index = batchLastIndex;// 设置下一批下标
                      batchLastIndex = index + (batchCount - 1);

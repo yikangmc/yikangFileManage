@@ -70,7 +70,9 @@ public class LoginFilter implements Filter {
 				this.log.error("登陆ip-->" + hostIp);
 				e.printStackTrace();
 			}
-		} else {
+		} else if(requestURI.equals("/fileUpload/doFileUpload")){
+			arg2.doFilter(arg0, arg1);
+		}else{
 			arg1.setCharacterEncoding("utf-8");
 			arg1.setContentType("application/json;charset=UTF-8");
 			arg1.getWriter().println("{'status':'999999','message':'数据校验失败!'}");

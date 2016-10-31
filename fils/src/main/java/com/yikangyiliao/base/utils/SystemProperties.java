@@ -3,6 +3,7 @@ package com.yikangyiliao.base.utils;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.Inet4Address;
+import java.util.List;
 import java.util.Properties;
 
 import org.omg.CORBA.PRIVATE_MEMBER;
@@ -44,6 +45,11 @@ public class SystemProperties {
 	 * */
 	public static String getPropertieValue(String key){
 		return systemProperties.getProperty(key);
+	}
+	
+	
+	public static void setPropertieValue(String key,String value){
+		systemProperties.setProperty(key, value);
 	}
 	
 

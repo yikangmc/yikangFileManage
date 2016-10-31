@@ -67,10 +67,11 @@ public class FileUtil {
 	 * @return
 	 */
 	public static List<Logs> parsingLog() {
-		String path="D:\\logs\\";
-		Logs logs = new Logs();
+		String path=SystemProperties.getPropertieValue("oldFilePath");
+		
 		List<Logs> logsList = new ArrayList<Logs>();
 		List<String> pathList = getFileName(path);
+		StringBuffer sBuffer = new StringBuffer();
 		if(pathList.size()>0){
 			for(int i=0;i<pathList.size();i++){
 				String filePath=path+pathList.get(i);
@@ -81,6 +82,7 @@ public class FileUtil {
 						BufferedReader bufferedReader = new BufferedReader(read);
 						String lineTxt = null;
 						while ((lineTxt = bufferedReader.readLine()) != null) {
+							Logs logs = new Logs();
 							String ary[] = lineTxt.split("-->");
 							//时间-->ios/android/服务器/-->userId-->json
 							/*
@@ -105,34 +107,34 @@ public class FileUtil {
 								try {
 									JSONObject jsonObject = new JSONObject(jsonString);
 									String equipment=jsonObject.getString("equipment");
-									equipment=equipment.equals("")?"-1":equipment;
+									equipment=equipment.equals("")?"0":equipment;
 									String operationType=jsonObject.getString("operationType");
-									operationType=operationType.equals("")?"-1":operationType;
+									operationType=operationType.equals("")?"0":operationType;
 									String openTime=jsonObject.getString("openTime");
-									openTime=openTime.equals("")?"1998-01-01":openTime;
+									openTime=openTime.equals("")?"1998-01-01 00:00:00":openTime;
 									String closeTime=jsonObject.getString("closeTime");
-									closeTime=closeTime.equals("")?"1998-01-01":closeTime;
+									closeTime=closeTime.equals("")?"1998-01-01 00:00:00":closeTime;
 									String taglibId=jsonObject.getString("taglibId");
-									taglibId=taglibId.equals("")?"-1":taglibId;
+									taglibId=taglibId.equals("")?"0":taglibId;
 									String homePageBanner=jsonObject.getString("homePageBanner");
-									homePageBanner=homePageBanner.equals("")?"-1":homePageBanner;
+									homePageBanner=homePageBanner.equals("")?"0":homePageBanner;
 									String communityPageBanner=jsonObject.getString("communityPageBanner");
-									communityPageBanner=communityPageBanner.equals("")?"-1":communityPageBanner;
+									communityPageBanner=communityPageBanner.equals("")?"0":communityPageBanner;
 									String url=jsonObject.getString("url");
 									JSONObject urlJsonString = new JSONObject(url);
 									String pageIdentify=urlJsonString.getString("pageIdentify");
-									pageIdentify=pageIdentify.equals("")?"-1":pageIdentify;
+									pageIdentify=pageIdentify.equals("")?"0":pageIdentify;
 									String typeIdentify=urlJsonString.getString("typeIdentify");
-									typeIdentify=typeIdentify.equals("")?"-1":typeIdentify;
+									typeIdentify=typeIdentify.equals("")?"0":typeIdentify;
 									String typeID = urlJsonString.getString("typeId");
 									typeID=typeID.equals("")?"-1":typeID;
 									String startTime=urlJsonString.getString("startTime");
-									startTime=startTime.equals("")?"1998-01-01":startTime;
+									startTime=startTime.equals("")?"1998-01-01 00:00:00":startTime;
 									String endTime = urlJsonString.getString("endTime");
-									endTime=endTime.equals("")?"1998-01-01":endTime;
+									endTime=endTime.equals("")?"1998-01-01 00:00:00":endTime;
 									logs.setEquipment(equipment);
 									logs.setOperationType(Integer.valueOf(1));
-									SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+									SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 									Date openDate = sdf.parse(openTime);
 									logs.setOpenTime(openDate);
 									Date closeDate = sdf.parse(openTime);
@@ -156,14 +158,16 @@ public class FileUtil {
 									// TODO Auto-generated catch block
 									e.printStackTrace();
 								}
-								//logs.setOperateContent(ary[3]);
 								logsList.add(logs);
 							}else{
 								System.out.println("日志格式有误");
 							}
 						}
 						read.close();
-						removeFile(file,pathList.get(i));
+						sBuffer.append(filePath);
+						if(i!=pathList.size()-1){
+							sBuffer.append(",");
+						}
 					} else {
 						System.out.println("找不到指定的文件");
 					}
@@ -175,6 +179,7 @@ public class FileUtil {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
+				SystemProperties.setPropertieValue("filePath", sBuffer.toString());
 			}
 		}
 		return logsList;
@@ -210,15 +215,13 @@ public class FileUtil {
 	 * @author houyt
 	 * @date 2016/10/19
 	 */
-	public static void removeFile(File file,String fileName){
-		String newPath = "D:/bakLogs/";
-		//new一个新文件夹 
-		File fnewpath = new File(newPath); 
-		//判断文件夹是否存在 
-		if(!fnewpath.exists()) 
-		fnewpath.mkdirs(); 
-		File newfile = new File(newPath+fileName);
-		boolean result = file.renameTo(newfile);
+	public static void deleteFile(){
+		String filePath = SystemProperties.getPropertieValue("filePath");
+		String pathList[] = filePath.split(",");
+		for(int i=0;i<pathList.length;i++){
+			File file = new File(pathList[i]);
+			file.delete();
+		}
 	}
 
 	public static void main(String[] args) {

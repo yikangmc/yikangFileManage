@@ -16,12 +16,12 @@
         
         
         <!--设置controller 扫描包  -->
-        <context:component-scan base-package="com.yikangyiliao.fileManage.controller,com.yikangyiliao.fileManage.manage,com.yikangyiliao.fileManage.schedule"/>
+        <context:component-scan base-package="com.yikangyiliao.fileManage.controller,com.yikangyiliao.fileManage.manage,com.yikangyiliao.base.thread"/>
         
         
         <bean class="org.springframework.web.servlet.mvc.support.ControllerClassNameHandlerMapping">
         	<property name="order" value="1"></property>
-        	<property name="basePackage" value="com.yikangyiliao.fileManage.controller,com.yikangyiliao.fileManage.manage,com.yikangyiliao.fileManage.schedule"></property>
+        	<property name="basePackage" value="com.yikangyiliao.fileManage.controller,com.yikangyiliao.fileManage.manage,com.yikangyiliao.base.thread"></property>
         	<property name="caseSensitive" value="true"></property>
         </bean>   
         

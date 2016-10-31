@@ -148,11 +148,11 @@ public class FileUploadController {
 
 	@RequestMapping
 	@ResponseBody
-	public Map<String, Object> doFileUpload(@RequestParam(value = "file") MultipartFile file) {
+	public Map<String, Object> doFileUpload(@RequestParam(value = "files") MultipartFile file) {
 		Map<String, Object> rtnData = new HashMap<String, Object>();
 		try {
 			System.out.println("开始");
-			String path = "D:\\logs";
+			String path = SystemProperties.getPropertieValue("oldFilePath");
 			String fileName = file.getOriginalFilename();
 			File targetFile = new File(path, fileName);
 			if (!targetFile.exists()) {
@@ -160,8 +160,12 @@ public class FileUploadController {
 			}
 			file.transferTo(targetFile);
 		} catch (Exception e) {
+			rtnData.put("status", ExceptionConstants.parameterException.parameterException.errorCode);
+			rtnData.put("message", ExceptionConstants.parameterException.parameterException.errorCode);
 			e.printStackTrace();
 		}
+		rtnData.put("status", ExceptionConstants.responseSuccess.responseSuccess.code);
+		rtnData.put("message", ExceptionConstants.responseSuccess.responseSuccess.message);
 		return rtnData;
 	}
 
