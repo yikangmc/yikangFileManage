@@ -1,12 +1,10 @@
 package com.yikangyiliao.filter;
 
-import com.yikangyiliao.base.utils.AccessTiketCheckout;
-import com.yikangyiliao.base.utils.NetworkUtil;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
 import javax.servlet.FilterConfig;
@@ -14,11 +12,15 @@ import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
+
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.FileUploadException;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.apache.log4j.Logger;
+
+import com.yikangyiliao.base.utils.AccessTiketCheckout;
+import com.yikangyiliao.base.utils.NetworkUtil;
 
 public class LoginFilter implements Filter {
 	private Logger log = Logger.getLogger(LoginFilter.class);
@@ -80,4 +82,58 @@ public class LoginFilter implements Filter {
 	}
 	public void init(FilterConfig arg0) throws ServletException {
 	}
+	
+	//         佛祖保佑       永无BUG     永不修改                  //
+////////////////////////////////////////////////////////////////////
+
+/**
+ *                             _ooOoo_
+ *                            o8888888o
+ *                            88" . "88
+ *                            (| -_- |)
+ *                            O\  =  /O
+ *                         ____/`---'\____
+ *                       .'  \\|     |//  `.
+ *                      /  \\|||  :  |||//  \
+ *                     /  _||||| -:- |||||-  \
+ *                     |   | \\\  -  /// |   |
+ *                     | \_|  ''\---/''  |   |
+ *                     \  .-\__  `-`  ___/-. /
+ *                   ___`. .'  /--.--\  `. . __
+ *                ."" '<  `.___\_<|>_/___.'  >'"".
+ *               | | :  `- \`.;`\ _ /`;.`/ - ` : | |
+ *               \  \ `-.   \_ __\ /__ _/   .-` /  /
+ *          ======`-.____`-.___\_____/___.-`____.-'======
+ *                             `=---='
+ *          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+ *                     佛祖保佑        永无BUG
+ *            佛曰:
+ *                   写字楼里写字间，写字间里程序员；
+ *                   程序人员写程序，又拿程序换酒钱。
+ *                   酒醒只在网上坐，酒醉还来网下眠；
+ *                   酒醉酒醒日复日，网上网下年复年。
+ *                   但愿老死电脑间，不愿鞠躬老板前；
+ *                   奔驰宝马贵者趣，公交自行程序员。
+ *                   别人笑我忒疯癫，我笑自己命太贱；
+ *                   不见满街漂亮妹，哪个归得程序员？
+ *                                         --陈苗辉
+*/
+
+//  ┏┓　   ┏┓
+//┏┛┻━━━┛┻┓
+//┃　　　　　　　┃ 　
+//┃　　　━　　　┃
+//┃　┳┛　┗┳　┃
+//┃　　　　　　　┃
+//┃　　　┻　　　┃
+//┃　　　　　　　┃
+//┗━┓　　　┏━┛
+//   ┃　　　┃ 神兽保佑　　　　　　　　
+//   ┃　　　┃ 代码无BUG！
+//   ┃　　　┗━━━┓
+//   ┃　　　　　　　┣┓
+//   ┃　　　　　　　┏┛
+//   ┗┓┓┏━┳┓┏┛
+//     ┃┫┫　┃┫┫
+//     ┗┻┛　┗┻┛
 }
