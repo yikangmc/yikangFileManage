@@ -13,19 +13,20 @@ import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.util.json.JSONException;
 import com.amazonaws.util.json.JSONObject;
 import com.yikangyiliao.base.awss3.conect.S3ConectFactory;
 import com.yikangyiliao.fileManage.entity.Logs;
-import com.yikangyiliao.fileManage.manage.LogsManage;
 
 public class FileUtil {
+	
 
-	@Autowired
-	private LogsManage logsManage;
+	private static Logger log=LoggerFactory.getLogger(FileUtil.class);
+	
 
 	public static String getFileSuffix(String fileName) {
 		return fileName.substring(fileName.lastIndexOf("."), fileName.length());
@@ -72,7 +73,7 @@ public class FileUtil {
 		List<Logs> logsList = new ArrayList<Logs>();
 		List<String> pathList = getFileName(path);
 		StringBuffer sBuffer = new StringBuffer();
-		if(pathList.size()>0){
+		if(null !=pathList &&  pathList.size()>0){
 			for(int i=0;i<pathList.size();i++){
 				String filePath=path+pathList.get(i);
 				File file = new File(filePath);
@@ -193,7 +194,7 @@ public class FileUtil {
 	public static List<String> getFileName(String path){
         File f = new File(path);
         if (!f.exists()) {
-            System.out.println(path + " not exists");
+            log.debug(path + " not exists");
             return null;
         }
         List<String> pathList = new ArrayList<String>();
@@ -201,10 +202,10 @@ public class FileUtil {
         for (int i = 0; i < fa.length; i++) {
             File fs = fa[i];
             if (fs.isDirectory()) {
-                System.out.println(fs.getName() + " [目录]");
+            	log.debug(fs.getName() + " [目录]");
             } else {
             	pathList.add(fs.getName());
-                System.out.println(fs.getName());
+            	log.debug(fs.getName());
             }
         }
         return pathList;
